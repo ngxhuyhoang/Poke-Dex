@@ -1,40 +1,40 @@
 import 'package:flutter/material.dart';
 
-void main() {
-  runApp(MyApp());
-}
+void main() => runApp(App());
 
-class MyApp extends StatelessWidget {
+class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
-
-  final String title;
-
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          title: Text(widget.title),
+      home: Scaffold(
+        drawer: Drawer(
+          child: ListView.builder(
+            itemCount: 10, 
+            itemBuilder: (context, index) {
+              return ListTile(
+                title: Text("Item - $index"),
+              );
+          }),
         ),
-        body: Text("Hello world"));
+        appBar: AppBar(
+          title: Text("Pokedex"),
+        ),
+        body: GridView.count(
+          crossAxisCount: 2,
+          padding: EdgeInsets.all(16),
+          mainAxisSpacing: 16,
+          crossAxisSpacing: 16,
+          children: List.generate(100, (index) {
+            return Container(
+                decoration: BoxDecoration(
+                    border: Border.all(color: Colors.blue),
+                    borderRadius: BorderRadius.all(Radius.circular(8))),
+                child: Center(child: Text("Hello")));
+          }),
+        ),
+      ),
+    );
   }
 }
